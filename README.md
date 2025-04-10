@@ -126,3 +126,9 @@ Resposta da IA:
         break
     else:
         print("❌ Opção inválida ❌")
+================================================================================================
+
+SUPER MÓDULO DE AUTOMAÇÃO EM PYTHON
+https://github.com/EricWSS/automacao_ia
+
+
