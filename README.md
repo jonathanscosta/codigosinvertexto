@@ -130,5 +130,72 @@ Resposta da IA:
 
 SUPER MÓDULO DE AUTOMAÇÃO EM PYTHON
 https://github.com/EricWSS/automacao_ia
+================================================================================================
+CÓDIGO DE INTERFACE EM FLET AULA 14 PYTHON
+import flet as ft
+import random
+
+# ---- Back-end (sua classe) ----
+class Clientes:
+    def __init__(self, nome, telefone, email):
+        self.nome = nome
+        self.telefone = telefone
+        self.email = email
+        self.__ID = self.gerar_ID()
+    
+    def mostrarDados(self):
+        dados = (
+            f"Cliente ({self.nome}) cadastrado\n"
+            f"Telefone: (85) 9 {self.telefone}\n"
+            f"E-mail: {self.email}\n"
+            f"ID: {self.__ID}\n"
+        )
+        return dados  # Vamos retornar os dados como texto para mostrar no app
+    
+    def gerar_ID(self):
+        numeros = [str(random.choice([1,2,3,4])) for i in range(4)]
+        return ''.join(numeros)
+
+# ---- Front-end (Flet) ----
+def main(page: ft.Page):
+    page.title = "Cadastro de Clientes"
+    page.vertical_alignment = ft.MainAxisAlignment.CENTER
+
+    # Criar os campos de entrada
+    nome_input = ft.TextField(label="Nome", width=300)
+    telefone_input = ft.TextField(label="Telefone (sem DDD)", width=300)
+    email_input = ft.TextField(label="E-mail", width=300)
+
+    # Área onde vamos mostrar o resultado
+    resultado_text = ft.Text()
+
+    # Função que será chamada quando o botão for clicado
+    def cadastrar_cliente(e):
+        nome = nome_input.value
+        telefone = telefone_input.value
+        email = email_input.value
+
+        if nome and telefone and email:
+            cliente = Clientes(nome, telefone, email)
+            resultado_text.value = cliente.mostrarDados()
+            page.update()
+        else:
+            resultado_text.value = "Por favor, preencha todos os campos."
+            page.update()
+
+    # Botão para acionar o cadastro
+    botao_cadastrar = ft.ElevatedButton("Cadastrar Cliente", on_click=cadastrar_cliente)
+
+    # Adicionar tudo na tela
+    page.add(
+        nome_input,
+        telefone_input,
+        email_input,
+        botao_cadastrar,
+        resultado_text,
+    )
+
+# Rodar o app
+ft.app(target=main)
 
 
