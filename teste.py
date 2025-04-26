@@ -113,3 +113,95 @@ def main(page: ft.Page):
     )
 
 ft.app(target=main)
+
+
+                             EXPLICANDO O CÓDIGO
+=================================================================================================================
+                                 Vamos linha por linha e bem detalhado para você entender tudo o que está acontecendo:
+
+
+imagens_quartos = []
+Cria uma lista vazia chamada imagens_quartos.
+
+Essa lista vai guardar todos os "cartõezinhos" de quartos (as imagens que o usuário poderá clicar).
+
+
+for quarto in quartos:
+Inicia um laço (for) para percorrer cada item da lista quartos.
+
+A lista quartos é aquela que tem dicionários com nome e imagem de cada quarto, lembra?
+
+Exemplo do que quartos contém:
+
+
+[
+    {"nome": "Quarto Luxo", "imagem": "imagens_quartos/quarto_luxo.jpg"},
+    {"nome": "Quarto Simples", "imagem": "imagens_quartos/quarto_simples.jpg"},
+    {"nome": "Suíte Master", "imagem": "imagens_quartos/suite_master.jpg"},
+]
+
+    imagem = ft.Image(
+        src=quarto["imagem"],  # Usando o caminho local
+        width=200,
+        height=150,
+        fit=ft.ImageFit.COVER
+    )
+Cria um componente de imagem do Flet (ft.Image).
+
+src=quarto["imagem"]: define o caminho da imagem que foi informado no dicionário ("imagens_quartos/quarto_luxo.jpg", por exemplo).
+
+width=200: largura da imagem será 200 pixels.
+
+height=150: altura da imagem será 150 pixels.
+
+fit=ft.ImageFit.COVER: garante que a imagem se encaixe perfeitamente dentro do espaço, sem distorcer (ela "cobre" o espaço).
+
+
+    imagem_container = ft.Container(
+        content=imagem,
+        on_click=selecionar_quarto,
+        data=quarto["nome"],  # Guarda o nome do quarto nesse botão
+        border=ft.border.all(1, ft.colors.BLACK),
+        border_radius=10,
+        padding=5,
+        margin=10,
+        ink=True,  # Deixa clicável com efeito
+    )
+Cria um container (caixinha) para a imagem.
+
+content=imagem: coloca a imagem que acabamos de criar dentro da caixinha.
+
+on_click=selecionar_quarto: define o que acontece quando o usuário clicar nesse container.
+(Chama a função selecionar_quarto, que vai registrar qual quarto foi escolhido.)
+
+data=quarto["nome"]: guarda informações extras no container — no caso, o nome do quarto (ex.: "Quarto Luxo").
+Isso é útil para saber depois qual quarto foi clicado.
+
+border=ft.border.all(1, ft.colors.BLACK): coloca uma borda preta de 1 pixel ao redor do container.
+
+border_radius=10: deixa os cantos da borda arredondados (10 de raio).
+
+padding=5: adiciona um espaço interno de 5 pixels (entre a borda e a imagem).
+
+margin=10: adiciona um espaço externo de 10 pixels (entre este container e o próximo).
+
+ink=True: ativa efeito visual de clique (tipo um efeito de "onda" quando clica, bem bonito).
+
+
+    imagens_quartos.append(imagem_container)
+Adiciona o container com a imagem (e suas configurações) na lista imagens_quartos.
+
+Assim, no final do for, teremos uma lista cheia de containers — um para cada quarto.
+
+Resumindo a ideia geral:
+Percorremos todos os quartos.
+
+Para cada quarto, criamos:
+
+Uma imagem (ft.Image).
+
+Um container clicável (ft.Container) envolvendo a imagem.
+
+Cada container guarda o nome do quarto associado.
+
+Salvamos todos os containers numa lista para depois mostrar tudo junto na tela.
